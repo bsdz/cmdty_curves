@@ -4,7 +4,7 @@ Commodity Curves
 [![NuGet](https://img.shields.io/nuget/v/cmdty.curves.svg)](https://www.nuget.org/packages/Cmdty.Curves/)
 [![PyPI](https://img.shields.io/pypi/v/curves.svg)](https://pypi.org/project/curves/)
 
-Set of tools written in C# for constructing commodity forward/futures/swap curves with a fluent API. Python API (created using [pythonnet](https://github.com/pythonnet/pythonnet)) also provided which integrates with the pandas library time series types.
+A set of tools written in C# for constructing commodity forward/futures/swap curves with a fluent API. A Python API (created using [pythonnet](https://github.com/pythonnet/pythonnet)) is also provided which integrates with the Pandas library time series types.
 
 ### Table of Contents
 * [Overview](#overview)
@@ -38,7 +38,7 @@ Set of tools written in C# for constructing commodity forward/futures/swap curve
 
 The curves package contains a set of tools for building commodity forward, swaps, and futures curves.
 
-More specifically, the problem being solved is to take a collection of traded forward prices, and tranform these into a 
+More specifically, the problem being solved is to take a collection of traded forward prices, and transform these into a 
 forward curve of homogenous granularity. Additionally the derived curve can constructed to be in a granularity higher 
 than what is traded in the market.
 
@@ -72,14 +72,14 @@ For use from Python install the curves package from PyPI.
 ```
 
 ## .NET Dependency
-As Cmdty.Curves is mostly written in C# it requires the .NET runtime to be installed to execute.
-The dlls are targetting [.NET Standard 2.0](https://learn.microsoft.com/en-us/dotnet/standard/net-standard?tabs=net-standard-2-0) which is compatible with .NET Framework versions 4.6.1
+As Cmdty.Curves is mostly written in C#, it requires the .NET runtime to be installed to execute.
+The DLLs are targeting [.NET Standard 2.0](https://learn.microsoft.com/en-us/dotnet/standard/net-standard?tabs=net-standard-2-0), which is compatible with .NET Framework versions 4.6.1
 upwards. A version of .NET Framework meeting this restriction should be installed on most
 Windows computers, so nothing extra is required.
 
 If running on a non-Windows OS then the runtime of a cross-platform type of .NET will be 
 required. .NET Standard is compatible with .NET and Mono, with the former being recommended.
-For the Python package, by default it will try to use .NET, and if this isn't installed it will
+For the Python package, by default it will try to use .NET, and if this isn't installed, it will
 try Mono. See the Microsoft documentation on installing the .NET runtime on [Linux](https://learn.microsoft.com/en-us/dotnet/core/install/linux)
 and on [macOS](https://learn.microsoft.com/en-us/dotnet/core/install/macos).
 
@@ -262,10 +262,10 @@ Freq: D, Length: 854, dtype: float64
 ### Python Version Compatibility
 The curves package should be compatible with the Python interpreter up to **version 3.11**.
 
-Limitations on the Python version which the curves package can be used
+Limitations on the Python version with which the curves package can be used
 are largely driven by the [pythonnet](https://github.com/pythonnet/pythonnet) package dependency. The latest version of curves (1.3.0) depends on
 pythonnet version 3.0.1, which itself works with Python up to version 3.11.
-Hence this is also the maximum version with which curves works.
+Hence, this is also the maximum version with which curves works.
 
 ## Handling Clock Changes
 Clock changes cause complications in two scenarios when building curves. Both of these are most relevant
@@ -286,7 +286,7 @@ baseload daily power curve. This would evaluate to:
 
 ### Building Curves of Higher Than Daily Granularity
 An example of this would be building a half-hourly power forward curve. Unfortunately,
-at present the Cmdty.Curves library does not support the use of time zone aware types to 
+at present, the Cmdty.Curves library does not support the use of time zone aware types to 
 represent the contract delivery periods. This would be the ideal way to handle the problem.
 As such, the correct way to handle clock changes is to tranform all contract delivery periods
 to their UTC time equivalents before feeding into the Cmdty.Curves algorithms. UTC time is
@@ -305,29 +305,29 @@ This section describes how to run a scripted build on a cloned repo. Visual Stud
 #### Build Prerequisites
 The following are required on the host machine in order for the build to run.
 * The .NET Core SDK. Check the [global.json file](global.json) for the version necessary, taking into account [the matching rules used](https://docs.microsoft.com/en-us/dotnet/core/tools/global-json#matching-rules).
-* The Python interpretter, accessible by being in a file location in the PATH environment variable. Version 3.7 is used, although other 3.x versions might work.
+* The Python interpreter, accessible by being in a file location in the PATH environment variable. Version 3.7 is used, although other 3.x versions might work.
 * The following Python packages installed:
     * virtualenv.
     * setuptools.
     * wheel.
 
 #### Running the Build
-The build is started by running the PowerShell script build.ps1 from a PowerShell console, ISE, or the Visual Studio Package Manager Console.
+The build is started by running the PowerShell script `build.ps1` from a PowerShell console, ISE, or the Visual Studio Package Manager Console.
 
 ```
 PM> .\build.ps1
 ```
 
 #### Build Artifacts
-The following results of the build will be saved into the artifacts directory (which itelf will be created in the top directory of the repo).
+The following results of the build will be saved into the artifacts directory (which itself will be created in the top directory of the repo).
 * The NuGet package: Cmdty.Curves.[version].nupkg
 * The Python package files:
     * curves-[version]-py3-none-any.whl
 
 ### Building from Linux and macOS
-Running the full build on non-Windows plaforms is still work in progress- the aim to to make it completely plaform agnostic. However, at the moment only the C# parts of the build are functioning cross-plaform.
+Running the full build on non-Windows platforms is still work in progress; the aim to to make it completely plaform agnostic. However, at the moment, only the C# parts of the build are functioning cross-plaform.
 
-The Cake build can be invoked using the bootstrapper Bash script build.sh. After first granting it execute permissions as below, the "Pack-NuGet" target results in the building and unit testing of the C#, before the creation of the Cmdty.Curves NuGet package.
+The Cake build can be invoked using the bootstrapper Bash script `build.sh`. After first granting it execute permissions as below, the "Pack-NuGet" target results in the building and unit testing of the C#, before the creation of the Cmdty.Curves NuGet package.
 ```
 > chmod +x build.sh
 > ./build.sh --target=Pack-NuGet.
@@ -342,7 +342,7 @@ the build can be run with the following command:
 
 ## Why the Strange Tech Stack?
 Users of the Python API might be perplexed as to the technology used: Python calling into .NET, which itself calls into native code for the Intel MKL numerical routines.
-This is certainly not a common structure, especially for a package focussed on complex numerical calculations.
+This is certainly not a common structure, especially for a package focused on complex numerical calculations.
 
 The Cmdty project started off as a .NET only project, written in C#, due to the author being mainly
 a C# guy during the day-job. The Python wrapper was added later as it became apparent that there was a demand to
